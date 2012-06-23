@@ -14,6 +14,9 @@ function! s:source.initialize()
  \  'Window': { 
  \    'member': { 'open' : 'f', 
  \                'add' : 'f' , 
+ \                'addEventListener' : 'f' , 
+ \                'fireEvent' : 'f' , 
+ \                'removeEventListener' : 'f' , 
  \                'title' : 'v' , 
  \                'height' : 'v' , 
  \                'width' : 'v',
@@ -27,6 +30,9 @@ function! s:source.initialize()
  \    'member': { 'addTab' : 'f', 
  \                'open' : 'f' , 
  \                'removeTab' : 'f' , 
+ \                'addEventListener' : 'f' , 
+ \                'fireEvent' : 'f' , 
+ \                'removeEventListener' : 'f' , 
  \                'activeTab' : 'v' ,
  \                'tabs' : 'v'
  \    },
@@ -34,6 +40,9 @@ function! s:source.initialize()
  \  },
  \  'View': {
  \    'member': { 'add' : 'f', 
+ \                'addEventListener' : 'f' , 
+ \                'fireEvent' : 'f' , 
+ \                'removeEventListener' : 'f' , 
  \                'remove' : 'f' , 
  \                'hide' : 'f' , 
  \                'show' : 'f' , 
@@ -56,6 +65,9 @@ function! s:source.initialize()
  \  },
  \  'TableView': {
  \    'member': { 'add' : 'f', 
+ \                'addEventListener' : 'f' , 
+ \                'fireEvent' : 'f' , 
+ \                'removeEventListener' : 'f' , 
  \                'remove' : 'f' , 
  \                'hide' : 'f' , 
  \                'show' : 'f' , 
@@ -88,6 +100,9 @@ function! s:source.initialize()
  \  },
  \  'WebView': {
  \    'member': { 'add' : 'f',
+ \                'addEventListener' : 'f' , 
+ \                'fireEvent' : 'f' , 
+ \                'removeEventListener' : 'f' , 
  \                'remove' : 'f' ,
  \                'hide' : 'f' ,
  \                'show' : 'f' , 
@@ -120,6 +135,9 @@ function! s:source.initialize()
  \  'Button': {
  \    'create': 'createButton',
  \    'member': { 'add' : 'f',
+ \                'addEventListener' : 'f' , 
+ \                'fireEvent' : 'f' , 
+ \                'removeEventListener' : 'f' , 
  \                'remove' : 'f' ,
  \                'hide' : 'f' ,
  \                'show' : 'f' , 
@@ -144,6 +162,9 @@ function! s:source.initialize()
  \  'Label': {
  \    'create': 'createLabel',
  \    'member': { 'add' : 'f',
+ \                'addEventListener' : 'f' , 
+ \                'fireEvent' : 'f' , 
+ \                'removeEventListener' : 'f' , 
  \                'remove' : 'f' ,
  \                'hide' : 'f' ,
  \                'show' : 'f' , 
@@ -168,6 +189,9 @@ function! s:source.initialize()
  \  'TextField': {
  \    'create': 'createTextField',
  \    'member': { 'add' : 'f',
+ \                'addEventListener' : 'f' , 
+ \                'fireEvent' : 'f' , 
+ \                'removeEventListener' : 'f' , 
  \                'remove' : 'f' ,
  \                'hide' : 'f' ,
  \                'show' : 'f' , 
@@ -200,6 +224,9 @@ function! s:source.initialize()
  \}
 " \  'Tab': {
 " \    'member': { 'badge' : 'v', 
+" \                'addEventListener' : 'f' , 
+" \                'fireEvent' : 'f' , 
+" \                'removeEventListener' : 'f' , 
 " \                'icon' : 'v' ,
 " \                'title' : 'v' ,
 " \                'window' : 'v'
@@ -214,6 +241,9 @@ function! s:source.initialize()
 " \                'hasChild' : 'v',
 " \                'hasDetail' : 'v',
 " \                'hasCheck' : 'v'
+" \                'addEventListener' : 'f' , 
+" \                'fireEvent' : 'f' , 
+" \                'removeEventListener' : 'f' , 
 " \    },
 " \  },
   let s:variables = {}
