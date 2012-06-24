@@ -292,6 +292,7 @@ endfunction"}}}
 
 function! timobile_complete#get_variables(line)"{{{
   let temp_line = substitute(a:line, '\s', '', 'g')
+  echo temp_line
   if temp_line =~ "=" && temp_line =~ "\\."
     let list = matchlist(temp_line, '\(\w*\)\(=\)\(\w*\)\(\.\)\(\w*\)\(\.\)\(\w*\)')
     for k in keys(s:objects)
@@ -300,6 +301,20 @@ function! timobile_complete#get_variables(line)"{{{
           let s:variables[list[1]] = { 'type': k }
         endif
       endif
+    endfor
+  endif
+  if temp_line =~ '=' && temp_line=~ 'new'
+    let list = matchlist(temp_line, '\(\w*\)\(=\)new\(\w*\)')
+    echo list
+    echo list[1]
+    echo list[3]
+    for k in keys(s:temp_objects)
+      echo k
+      if (len(list) > 0) && (k =~ list[3])
+        if !has_key(s:variables, list[1])
+          let s:variables[list[1]] = { 'type': k }
+        endif  
+      endif  
     endfor
   endif
 endfunction"}}}
