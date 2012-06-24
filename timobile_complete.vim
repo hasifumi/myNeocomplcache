@@ -248,6 +248,12 @@ function! s:source.initialize()
 " \  },
   let s:variables = {}
   let s:line = 0
+  let s:temp_objects = {}
+endfunction
+
+function! timobile_complete#initialize()
+  call s:source.initialize()
+  let s:temp_objects["test"] = {}
 endfunction
 
 function! s:source.finalize()
@@ -267,7 +273,6 @@ function! s:source.get_keyword_pos(cur_text)
         call add(s:keywords, { 'word' : word1.".".word, 'menu': '[timobile]', 
          \ 'kind' : s:objects[s:variables[word1]['type']]['member'][word]})
       endfor
-      "echo 'word1. :' . word1."."
       return match(a:cur_text, word1.".")
       break
     endif
@@ -280,17 +285,9 @@ endfunction
 
 function! timobile_complete#get_variables(line)
   let temp_line = substitute(a:line, '\s', '', 'g')
-  "echo temp_line
   if temp_line =~ "=" && temp_line =~ "\\."
-  "if match(temp_line, "\w*=\w*\\.\w*")
-    "let list = matchlist(temp_litemp_linene, '\(\w*\)\(=\)\(\w*\)')
-    "let list = matchlist(temp_line, '\(\w*\)\(=\)\(\w*\)\(\.\)\(\w*\)')
     let list = matchlist(temp_line, '\(\w*\)\(=\)\(\w*\)\(\.\)\(\w*\)\(\.\)\(\w*\)')
-    "echo 'list[5]:' . list[5] . ', list[4]:' . list[4] . ', list[3]:' . list[3]
-    "echo 'list[7]:' . list[7] . ', list[6]:' . list[6] . ', list[5]:' . list[5]. ', list[4]:' . list[4] . ', list[3]:' . list[3]
     for k in keys(s:objects)
-      "if (len(list) > 0 ) && (list[3] =~ s:objects[k]['create'])
-      "if (len(list) > 0 ) && (list[5] =~ s:objects[k]['create'])
       if (len(list) > 0 ) && (list[7] =~ s:objects[k]['create'])
         if !has_key(s:variables, list[1])
           let s:variables[list[1]] = { 'type': k }
@@ -327,6 +324,25 @@ function! timobile_complete#test()
   else
     echo 'NG'
   endif
+endfunction
+
+function! timobile_complete#add_temp_object(class, member, kind)
+  if !has_key(s:temp_objects, a:class)
+    if !has_key(s:temp_objects[a:class]["member"], a:member)
+      let s:temp_objects[a:class] = {'create': 'new'}
+      let s:temp_objects[a:class]["member"][a:class] = a:kind
+    endif
+    "if !has_key(s:temp_objects[a:class], "create")
+    "  let s:temp_objects[a:class]["create"] = "new"
+    "endif
+  endif
+endfunction
+
+function! timobile_complete#show_all_temp_objects()
+  "echo " show all temp objects"
+  for i in keys(s:temp_objects)
+    echo ' key: ' . i 
+  endfor
 endfunction
 
 "function! timobile_complete#get_space_col(str)
