@@ -251,12 +251,18 @@ function! s:source.initialize()
   let s:temp_objects = {}
 endfunction
 
-function! timobile_complete#initialize()
-  call s:source.initialize()
-  let s:temp_objects["test"] = {}
+function! s:source.finalize()
+  unlet s:objects
+  unlet s:temp_objects
+  unlet s:keywords
+  unlet s:line
+  unlet s:variables
 endfunction
 
-function! s:source.finalize()
+function! timobile_complete#initialize()
+  call s:source.finalize()
+  call s:source.initialize()
+  "let s:temp_objects["test"] = {}
 endfunction
 
 function! s:source.get_keyword_pos(cur_text)
@@ -318,30 +324,47 @@ function! timobile_complete#show_all_objects()
 endfunction
 
 function! timobile_complete#test()
-  let str = 'cc=gaicre'
-  if str =~ "\."
-    echo 'OK'
-  else
-    echo 'NG'
-  endif
+  echo s:temp_objects
 endfunction
 
 function! timobile_complete#add_temp_object(class, member, kind)
-  if !has_key(s:temp_objects, a:class)
-    if !has_key(s:temp_objects[a:class]["member"], a:member)
-      let s:temp_objects[a:class] = {'create': 'new'}
-      let s:temp_objects[a:class]["member"][a:class] = a:kind
+  echo "class:" . a:class . ", member:" . a:member . ", kind:" . a:kind
+  if has_key(s:temp_objects, a:class)
+    echo "has class"
+    if has_key(s:temp_objects[a:class]["member"], a:member)
+      echo "has member"
+    else
+      let s:temp_objects[a:class]["member"][a:member] = a:kind
     endif
-    "if !has_key(s:temp_objects[a:class], "create")
-    "  let s:temp_objects[a:class]["create"] = "new"
-    "endif
+  else
+    if empty(a:member) || empty(a:kind)
+      let s:temp_objects[a:class] = {'member':{}, 'create':'new'}
+    else
+      let s:temp_objects[a:class] = {'member':{}, 'create':'new'}
+      let s:temp_objects[a:class]["member"][a:member] = a:kind
+    "if has_key(s:temp_objects[a:class], member)
+    "  echo "has member"
+    endif
   endif
+  ""if !has_key(s:temp_objects, a:class)
+  "  if !has_key(s:temp_objects[a:class]["member"], a:member)
+  "    let s:temp_objects[a:class] = {'create': 'new'}
+  "    let s:temp_objects[a:class]["member"][a:class] = a:kind
+  "  endif
+  "  "if !has_key(s:temp_objects[a:class], "create")
+  "  "  let s:temp_objects[a:class]["create"] = "new"
+  "  "endif
+  "endif
 endfunction
 
 function! timobile_complete#show_all_temp_objects()
   "echo " show all temp objects"
   for i in keys(s:temp_objects)
-    echo ' key: ' . i 
+    echo 'key:' . i
+    "for j in keys(s:temp_objects[i])
+    "  let values = values(s:temp_objects[i])
+    "  echo ' key1:' . i . ', keys2:' . s:temp_objects[i] . ', values:' . values
+    "endfor
   endfor
 endfunction
 
