@@ -7,4 +7,6 @@ export.AA
   self.bb = ()->
     BBBB
 
+  self.cc = "cc"
+
   return self  

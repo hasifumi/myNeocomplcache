@@ -1,8 +1,8 @@
-function! test#test1()
+function! test#test1()"{{{
   echo "test1!"
-endfunction
+endfunction"}}}
 
-function! test#test2()
+function! test#test2()"{{{
   "let str = " aa = require(\"AA\").AA "
   let str = " aa = require('AA').AA "
   let aft0 = substitute(str, " ", "", "g")
@@ -15,9 +15,9 @@ function! test#test2()
   let list = matchlist(aft1, '\(\w*\)=\w*("\(\w*\)"')
   echo list[2]
   call test#test3(list[2])
-endfunction
+endfunction"}}}
 
-function! test#test3(filename)
+function! test#test3(filename)"{{{
   "let base = "./" . "AA" . ".coffee"
   let base = "./" . a:filename . ".coffee"
   "echo base
@@ -32,13 +32,13 @@ function! test#test3(filename)
       endfor
     endif
   endfor
-endfunction
+endfunction"}}}
 
-function! test#test4()
+function! test#test4()"{{{
   call test#test3("AA")
-endfunction
+endfunction"}}}
 
-function! test#test5()
+function! test#test5()"{{{
   let str = "  self.aa = ()->  "
   "if a:line =~ ""
   "  let str = "  self.aa = ()->  "
@@ -52,5 +52,5 @@ function! test#test5()
   endif
   let list = matchlist(aft0, '\w*\.\(\w*\)=\.*')
   echo list[1]
-endfunction
+endfunction"}}}
 
